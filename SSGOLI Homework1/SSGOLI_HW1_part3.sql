@@ -1,0 +1,10 @@
+select concat(firstname,' ',lastname) as Full_name, city, phone from employees a, offices b where a.officeCode=b.officeCode;
+select customerName, sum(amount) as Total_Amount from customers a, payments b where a.customerNumber=b.customerNumber group by a.customerNumber;
+select customerName, count(orderNumber) as Total_orders from customers a, orders b where a.customerName like "a%" and a.customerNumber=b.customerNumber;
+select customerName from customers where customerNumber IN (select customerNumber from payments where amount>10000);
+select customerName,orderNumber, orderDate, paymentDate, amount, status from customers a join payments b join orders c on a.customerNumber=b.customerNumber and a.customerNumber=c.customerNumber;
+select customerName, country, productLine from customers a, (select productCode,customerNumber from  orders a, orderdetails b where a.orderNumber=b.orderNumber) b, (select productCode,b.productLine from products a, productLines b where a.productLine=b.productLine) c where a.country="USA" and a.customerNumber=b.customerNumber and b.ProductCode=c.ProductCode;
+select firstName, lastName, city, country, postalcode from employees a join offices b on a.officeCode=b.officeCode where a.employeeNumber IN (select salesRepEmployeeNumber from customers where country="USA");
+select firstname, lastname, count(orderNumber) from employees a join (select salesRepEmployeeNumber, orderNumber from customers a join orders b on a.customerNumber=b.customerNumber) b on a.employeeNumber=b.salesRepEmployeeNumber group by employeeNumber;
+select productName, quantityInStock, buyPrice from products where productCode IN (select productCode from orderdetails a join orders b on a.orderNumber=b.orderNumber);
+select customerName,employeeNumber,jobtitle from customers a join employees b on b.employeeNumber=a.salesRepEmployeeNumber where b.jobtitle<>"VP Sales";

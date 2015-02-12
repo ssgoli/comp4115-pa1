@@ -1,0 +1,121 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 5.6.23-log MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database us_states;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use us_states
+Database changed
+mysql> create table states(state_name varchar(25), population int, id int auto_i
+ncrement primary key, region enum('urban','rural'), capital varchar(25));
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> insert states into values('tennessee',123456,1,'urban','nashville');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near 'into
+values('tennessee',123456,1,'urban','nashville')' at line 1
+mysql> insert into states value('tennessee',123456,1,'urban','nashville');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into states value('california',723456,1,'urban','sacramento');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+mysql> insert into states value('california',723456,default,'urban','sacramento'
+);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from states;
++------------+------------+----+--------+------------+
+| state_name | population | id | region | capital    |
++------------+------------+----+--------+------------+
+| tennessee  |     123456 |  1 | urban  | nashville  |
+| california |     723456 |  2 | urban  | sacramento |
++------------+------------+----+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into states value('alabama',93456,default,'urban','montgomery');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into states value('alaska',93456,default,'urban','juneau');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into states value('arizona',103456,default,'rural','phoenix');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into states value('arkansas',103456,default,'rural','little rock')
+;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into states value('colorado',103456,default,'urban','denver');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into states value('connecticut',303456,default,'urban','hartford')
+;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into states value('delaware',75456,default,'rural','dover');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from states;
++-------------+------------+----+--------+-------------+
+| state_name  | population | id | region | capital     |
++-------------+------------+----+--------+-------------+
+| tennessee   |     123456 |  1 | urban  | nashville   |
+| california  |     723456 |  2 | urban  | sacramento  |
+| alabama     |      93456 |  3 | urban  | montgomery  |
+| alaska      |      93456 |  4 | urban  | juneau      |
+| arizona     |     103456 |  5 | rural  | phoenix     |
+| arkansas    |     103456 |  6 | rural  | little rock |
+| colorado    |     103456 |  7 | urban  | denver      |
+| connecticut |     303456 |  8 | urban  | hartford    |
+| delaware    |      75456 |  9 | rural  | dover       |
++-------------+------------+----+--------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into states value('florida',203456,default,'urban','tallahassee');
+
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from states;
++-------------+------------+----+--------+-------------+
+| state_name  | population | id | region | capital     |
++-------------+------------+----+--------+-------------+
+| tennessee   |     123456 |  1 | urban  | nashville   |
+| california  |     723456 |  2 | urban  | sacramento  |
+| alabama     |      93456 |  3 | urban  | montgomery  |
+| alaska      |      93456 |  4 | urban  | juneau      |
+| arizona     |     103456 |  5 | rural  | phoenix     |
+| arkansas    |     103456 |  6 | rural  | little rock |
+| colorado    |     103456 |  7 | urban  | denver      |
+| connecticut |     303456 |  8 | urban  | hartford    |
+| delaware    |      75456 |  9 | rural  | dover       |
+| florida     |     203456 | 10 | urban  | tallahassee |
++-------------+------------+----+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from states order by population asc;
++-------------+------------+----+--------+-------------+
+| state_name  | population | id | region | capital     |
++-------------+------------+----+--------+-------------+
+| delaware    |      75456 |  9 | rural  | dover       |
+| alabama     |      93456 |  3 | urban  | montgomery  |
+| alaska      |      93456 |  4 | urban  | juneau      |
+| arkansas    |     103456 |  6 | rural  | little rock |
+| arizona     |     103456 |  5 | rural  | phoenix     |
+| colorado    |     103456 |  7 | urban  | denver      |
+| tennessee   |     123456 |  1 | urban  | nashville   |
+| florida     |     203456 | 10 | urban  | tallahassee |
+| connecticut |     303456 |  8 | urban  | hartford    |
+| california  |     723456 |  2 | urban  | sacramento  |
++-------------+------------+----+--------+-------------+
+10 rows in set (0.08 sec)
+
